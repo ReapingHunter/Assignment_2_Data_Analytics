@@ -17,7 +17,7 @@ df_grouped = df.groupby(['LABEL', 'COUNT']).size().unstack(fill_value=0)
 colors = {0: 'red', 1: 'blue'}
 
 # Create horizontal stacked bar chart
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(8, 5))
 bars_0 = ax.barh(df_grouped.index, df_grouped[0], color=colors[0], label='No')
 bars_1 = ax.barh(df_grouped.index, df_grouped[1], left=df_grouped[0], color=colors[1], label='Yes')
 
@@ -27,27 +27,30 @@ for bars, count_value in [(bars_0, 0), (bars_1, 1)]:
         width = bar.get_width()
         if width > 0:  # Avoid placing text in empty bars
             ax.text(
-                bar.get_x() + width - 0.2,
+                bar.get_x() + width - 0.4,
                 bar.get_y() + bar.get_height() / 2, 
                 str(int(width)), 
-                ha='right',
+                ha='center',
                 va='center', 
                 color='white', 
-                fontsize=12, 
+                fontsize=14, 
                 fontweight='bold'
             )
 
 # Labels and title
-ax.set_xlabel("Count")
-ax.set_ylabel("Label")
-ax.set_title("Horizontal Stacked Bar Chart")
+ax.set_xlabel("Count", fontsize=14, fontweight="bold")
+ax.set_ylabel("Label", fontsize=14, fontweight="bold")
+ax.set_title("Horizontal Stacked Bar Chart", fontsize=14, fontweight="bold", pad=30)
 
 # Create custom legend handles
-red_square = mlines.Line2D([], [], marker='s', color='red', label='No', markersize=10)
-blue_square = mlines.Line2D([], [], marker='s', color='blue', label='Yes', markersize=10)
+red_square = mlines.Line2D([], [], marker='s', color='red', label='No', markersize=10, linewidth=0)
+blue_square = mlines.Line2D([], [], marker='s', color='blue', label='Yes', markersize=10, linewidth=0)
 
 # Add the custom legend at the bottom of the title
-ax.legend(handles=[red_square, blue_square], loc='upper center', bbox_to_anchor=(0.5, 0.99), ncol=2)
+ax.legend(handles=[red_square, blue_square], loc='upper left', bbox_to_anchor=(0.01, 1.1), ncol=2, fontsize=14, frameon=False)
+
+ax.grid(False)
+ax.tick_params(axis='both', which='major', labelsize=12, width=2)
 
 # Show the plot
 plt.show()
