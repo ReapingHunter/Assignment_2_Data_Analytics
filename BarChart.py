@@ -27,7 +27,7 @@ for bars, count_value in [(bars_0, 0), (bars_1, 1)]:
         width = bar.get_width()
         if width > 0:  # Avoid placing text in empty bars
             ax.text(
-                bar.get_x() + width - 0.4,
+                bar.get_x() + width - 0.2,
                 bar.get_y() + bar.get_height() / 2, 
                 str(int(width)), 
                 ha='center',
